@@ -1,0 +1,1351 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+public/
+  profile.jpeg
+  profile2.jpg
+  ZconVIZechubPresentation-thumb.jpg
+src/
+  app/
+    api/
+      contact/
+        route.ts
+    layout.tsx
+    page.tsx
+  components/
+    About.tsx
+    Contact.tsx
+    FigmaReveal.tsx
+    Footer.tsx
+    Hackathon.tsx
+    Header.tsx
+    Hero.tsx
+    Parallax.tsx
+    Projects.tsx
+    SwarmCursors.tsx
+    TypingEffect.tsx
+  hooks/
+    useMediaQuery.ts
+  styles/
+    globals.css
+.eslintrc.json
+next-env.d.ts
+next.config.js
+package.json
+postcss.config.js
+tailwind.config.js
+tsconfig.json
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path="src/app/api/contact/route.ts">
+import { NextResponse } from 'next/server';
+
+export async function POST(req: Request) {
+  try {
+    const body = await req.json();
+    const { name, email, message } = body;
+
+    if (!name || !email || !message) {
+      return NextResponse.json(
+        { error: 'Todos os campos são obrigatórios.' },
+        { status: 400 }
+      );
+    }
+
+    // TODO: Integrar com serviço de e-mail (Resend, Formspree, SendGrid, etc.)
+    console.log('Nova mensagem de contato:', { name, email, message });
+
+    return NextResponse.json(
+      { success: true, message: 'Mensagem enviada com sucesso!' },
+      { status: 200 }
+    );
+  } catch {
+    return NextResponse.json(
+      { error: 'Erro ao processar a mensagem.' },
+      { status: 500 }
+    );
+  }
+}
+</file>
+
+<file path="src/app/layout.tsx">
+import '@/styles/globals.css';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Lucas do Condo | Desenvolvedor Full‑Stack',
+  description: 'Portfólio de Lucas do Condo: TypeScript, React, Next.js e Zcash.',
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="pt-BR" className="dark">
+      <body className="bg-bg text-white antialiased">{children}</body>
+    </html>
+  );
+}
+</file>
+
+<file path="src/app/page.tsx">
+import Header from '@/components/Header';
+import Hero from '@/components/Hero';
+import About from '@/components/About';
+import Projects from '@/components/Projects';
+import Hackathon from '@/components/Hackathon';
+import Contact from '@/components/Contact';
+import Footer from '@/components/Footer';
+import SwarmCursors from '@/components/SwarmCursors';
+
+export default function Home() {
+  return (
+    <main className="min-h-screen">
+      <SwarmCursors count={5} />
+      <Header />
+      <Hero />
+      <About />
+      <Projects />
+      <Hackathon />
+      <Contact />
+      <Footer />
+    </main>
+  );
+}
+</file>
+
+<file path="src/components/About.tsx">
+// src/components/About.tsx
+import Image from 'next/image';
+import FigmaReveal from '@/components/FigmaReveal';
+
+type StackGroup = {
+  title: string;
+  items: string[];
+};
+
+const formacao: string[] = [
+  'Gestão da Tecnologia da Informação',
+  'Análise e Desenvolvimento de Sistemas',
+  'Gestão de Recursos Humanos',
+];
+
+const stack: StackGroup[] = [
+  {
+    title: 'Linguagens & Ecossistemas',
+    items: ['TypeScript', 'JavaScript', 'Rust', 'GDScript', 'HTML5', 'CSS3', 'SQL'],
+  },
+  {
+    title: 'Frameworks & Bibliotecas',
+    items: [
+      'React',
+      'Vite',
+      'Next.js',
+      'Node.js',
+      'Express',
+      'Tailwind CSS',
+      'Shadcn UI',
+      'Flutter',
+      'Android (Kotlin/Compose)',
+    ],
+  },
+  {
+    title: 'Bancos de Dados & ORM',
+    items: ['PostgreSQL', 'Prisma ORM', 'SQLite', 'Redis (BullMQ)'],
+  },
+  {
+    title: 'DevOps, Ferramentas & Cloud',
+    items: [
+      'Git',
+      'GitHub',
+      'Docker',
+      'Linux',
+      'Oracle Cloud (VPS)',
+      'Tauri',
+      'Inno Setup',
+      'Godot Engine 4',
+      'OAuth 2.0',
+      'gRPC',
+      'JWT',
+    ],
+  },
+];
+
+export default function About() {
+  return (
+    <section id="sobre" className="py-24 bg-bg/50">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="grid md:grid-cols-[1fr_auto] gap-12 items-start">
+          <div>
+            <h3 className="text-3xl font-bold text-accent mb-2">Sobre mim</h3>
+            <p className="text-xl font-medium text-white mb-6">
+              Desenvolvedor Full Stack
+            </p>
+
+            <ul className="flex flex-wrap gap-2 mb-6" aria-label="Formação">
+              {formacao.map((f) => (
+                <li
+                  key={f}
+                  className="px-3 py-1 rounded-full border border-accent/40 text-sm text-accent"
+                >
+                  {f}
+                </li>
+              ))}
+            </ul>
+
+            <div className="space-y-4 text-lg text-muted-foreground leading-relaxed">
+              <p>
+                Atuação destacada em operações de redes, automação, suporte
+                técnico avançado e desenvolvimento de software end-to-end.
+              </p>
+              <p>
+                Forte domínio na criação de arquiteturas escaláveis, aplicações
+                web modernas e ecossistemas descentralizados, unindo eficiência
+                de infraestrutura, governança de TI e metodologias de melhoria
+                contínua.
+              </p>
+            </div>
+          </div>
+
+          <FigmaReveal
+            radius="0.75rem"
+            className="mx-auto w-full max-w-[280px] md:max-w-[320px]"
+          >
+            <Image
+              src="/profile2.jpg"
+              alt="Foto de Lucas do Condo"
+              width={1536}
+              height={2730}
+              priority
+              sizes="(min-width: 768px) 320px, 80vw"
+              className="block h-auto w-full rounded-xl border border-accent/30"
+            />
+          </FigmaReveal>
+        </div>
+
+        <div className="mt-16">
+          <h4 className="text-2xl font-bold text-accent mb-8">
+            Tecnologias, Frameworks &amp; Stack Técnica
+          </h4>
+
+          <div className="grid gap-6 sm:grid-cols-2">
+            {stack.map((group, i) => (
+              <FigmaReveal key={group.title} delay={i * 150} className="h-full">
+                <div className="h-full rounded-2xl border border-white/10 bg-card p-6">
+                  <h5 className="text-base font-medium text-white mb-4">
+                    {group.title}
+                  </h5>
+                  <ul className="flex flex-wrap gap-2">
+                    {group.items.map((item) => (
+                      <li
+                        key={item}
+                        className="px-2.5 py-1 rounded bg-white/5 text-sm text-accent"
+                      >
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </FigmaReveal>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+</file>
+
+<file path="src/components/Contact.tsx">
+export default function Contact() {
+  return (
+    <section id="contato" className="py-24 bg-bg">
+      <div className="max-w-7xl mx-auto px-4">
+        <h3 className="text-3xl font-bold text-accent text-center mb-8">
+          Contato
+        </h3>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          {/* Formulário simples */}
+          <form
+            className="space-y-4"
+            action="/api/contact"
+            method="POST"
+          >
+            <input
+              type="text"
+              name="name"
+              placeholder="Seu nome"
+              required
+              className="w-full px-4 py-2 border rounded bg-card text-white"
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="E‑mail"
+              required
+              className="w-full px-4 py-2 border rounded bg-card text-white"
+            />
+            <textarea
+              name="message"
+              rows={4}
+              placeholder="Sua mensagem"
+              required
+              className="w-full px-4 py-2 border rounded bg-card text-white resize-none"
+            ></textarea>
+
+            <button
+              type="submit"
+              className="w-full px-6 py-3 bg-accent text-black font-medium rounded-lg hover:opacity-90 transition"
+            >
+              Enviar
+            </button>
+          </form>
+
+          {/* Redes sociais */}
+          <div>
+            <h4 className="text-base font-medium mb-3 text-white">Redes sociais</h4>
+            <ul className="space-y-3 text-muted-foreground">
+              <li>
+                <a
+                  href="https://linkedin.com/in/lucasdocondo"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:underline"
+                >
+                  LinkedIn
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://x.com/LucasdoCondo"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:underline"
+                >
+                  X (Twitter)
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* E‑mail direto */}
+          <div>
+            <h4 className="text-base font-medium mb-3 text-white">E-mail</h4>
+            <a
+              href="mailto:lucasdocondo@gmail.com"
+              className="text-accent hover:underline"
+            >
+              lucasdocondo@gmail.com
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+</file>
+
+<file path="src/components/FigmaReveal.tsx">
+'use client';
+
+import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { usePrefersReducedMotion } from '@/hooks/useMediaQuery';
+
+type Phase = 'hidden' | 'drawing' | 'done';
+
+type Size = { w: number; h: number };
+
+type FigmaRevealProps = {
+  children: ReactNode;
+  /** Atraso (ms) antes de começar a desenhar. Use `index * 150` para escalonar. */
+  delay?: number;
+  /** Raio do contorno; deve acompanhar o `rounded-*` do conteúdo. */
+  radius?: string;
+  className?: string;
+};
+
+const HANDLES = [
+  '-left-[3px] -top-[3px]',
+  '-right-[3px] -top-[3px]',
+  '-bottom-[3px] -left-[3px]',
+  '-bottom-[3px] -right-[3px]',
+] as const;
+
+export default function FigmaReveal({
+  children,
+  delay = 0,
+  radius = '1rem',
+  className = '',
+}: FigmaRevealProps) {
+  const ref = useRef<HTMLDivElement>(null);
+  const reduceMotion = usePrefersReducedMotion();
+  const [phase, setPhase] = useState<Phase>('hidden');
+  const [hover, setHover] = useState<boolean>(false);
+  const [size, setSize] = useState<Size>({ w: 0, h: 0 });
+
+  // Mede o tamanho real para o selo "L × A".
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new ResizeObserver(() => {
+      const next: Size = { w: Math.round(el.offsetWidth), h: Math.round(el.offsetHeight) };
+      setSize((prev) => (prev.w === next.w && prev.h === next.h ? prev : next));
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  // Dispara a animação quando o bloco entra na tela (uma única vez).
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || reduceMotion) return;
+
+    const timers: number[] = [];
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        observer.disconnect();
+        timers.push(
+          window.setTimeout(() => {
+            setPhase('drawing');
+            timers.push(window.setTimeout(() => setPhase('done'), 750));
+          }, delay),
+        );
+      },
+      { threshold: 0.2 },
+    );
+    observer.observe(el);
+
+    return () => {
+      observer.disconnect();
+      timers.forEach((id) => window.clearTimeout(id));
+    };
+  }, [delay, reduceMotion]);
+
+  // Com "reduzir movimento", o conteúdo aparece direto, sem animação de montagem.
+  const done = reduceMotion || phase === 'done';
+  const drawing = !reduceMotion && phase === 'drawing';
+  const revealed = reduceMotion || phase !== 'hidden';
+  const showOutline = drawing || (done && hover);
+
+  return (
+    <div
+      ref={ref}
+      className={`relative ${className}`}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+    >
+      <div
+        className="h-full"
+        style={{
+          opacity: done ? 1 : 0,
+          transform: done ? 'none' : 'translateY(6px)',
+          transition: 'opacity 0.45s ease, transform 0.45s ease',
+        }}
+      >
+        {children}
+      </div>
+
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0"
+        style={{ opacity: showOutline ? 1 : 0, transition: 'opacity 0.25s ease' }}
+      >
+        <div
+          className="absolute inset-0 border border-accent"
+          style={{
+            borderRadius: radius,
+            backgroundColor: drawing ? 'rgba(0, 212, 170, 0.06)' : 'transparent',
+            clipPath: revealed ? 'inset(0 0 0 0)' : 'inset(0 100% 100% 0)',
+            transition: 'clip-path 0.65s cubic-bezier(0.22, 1, 0.36, 1)',
+          }}
+        />
+
+        {HANDLES.map((position) => (
+          <span
+            key={position}
+            className={`absolute h-[7px] w-[7px] border border-accent bg-white ${position}`}
+          />
+        ))}
+
+      </div>
+    </div>
+  );
+}
+</file>
+
+<file path="src/components/Footer.tsx">
+export default function Footer() {
+  return (
+    <footer className="py-8 bg-card text-center">
+      <div className="max-w-7xl mx-auto px-4">
+        <p className="text-muted-foreground">
+          Feito com ❤️ por <a href="https://github.com/LucasdoCondo" className="text-accent hover:underline" target="_blank" rel="noopener">
+            Lucas do Condo
+          </a>
+        </p>
+
+        <p className="mt-2 text-xs text-muted-foreground">
+          Licença: <a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener">
+            MIT
+          </a> | CC BY‑SA 4.0 para o conteúdo do ZecHub.
+        </p>
+      </div>
+    </footer>
+  );
+}
+</file>
+
+<file path="src/components/Hackathon.tsx">
+import Image from 'next/image';
+import Link from 'next/link';
+import { AiFillGithub } from 'react-icons/ai';
+import FigmaReveal from '@/components/FigmaReveal';
+
+export default function Hackathon() {
+  return (
+    <section id="hackathon" className="py-24 bg-bg/50">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <div>
+            <h3 className="text-3xl font-bold text-accent mb-4">
+              Hackathon ZecHub 2026
+            </h3>
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              O Hackathon ZecHub 2026 reuniu desenvolvedores, designers e
+              entusiastas da comunidade Zcash para criar conteúdo educativo
+              e ferramentas que promovam o uso e a compreensão do ZEC. Ao
+              longo de 8 semanas, participamos da criação de tutoriais em
+              vídeo, artigos de wiki e o podcast “Zcash em Foco”. O projeto
+              destacou‑se pela descentralização e pelo modelo open‑source,
+              garantindo que o conhecimento permaneça acessível a todos.
+            </p>
+
+            <details className="mt-6">
+              <summary className="text-sm hover:underline cursor-pointer">
+                Mais detalhes
+              </summary>
+              <ul className="mt-2 text-sm text-muted-foreground list-disc pl-5 space-y-1">
+                <li>Data: 15 de março a 05 de maio de 2026</li>
+                <li>Participantes: 42 voluntários (devs, escritores, designers)</li>
+                <li>Resultado: 12 tutoriais em vídeo, 8 artigos de wiki, 1 podcast</li>
+                <li>Premiação: destaque no site oficial da ZecHub e certificado de contribuição CC‑BY‑SA 4.0</li>
+              </ul>
+            </details>
+
+            <div className="mt-6">
+              <h4 className="text-xl font-medium text-accent mb-3">
+                Repositório do projeto
+              </h4>
+              <Link
+                href="https://github.com/LucasdoCondo/zechub"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center text-accent hover:underline"
+              >
+                <AiFillGithub className="h-4 w-4 mr-1" />
+                Ver no GitHub
+              </Link>
+            </div>
+          </div>
+
+          <FigmaReveal radius="0.75rem" className="mx-auto w-fit max-w-full">
+            <Image
+              src="/ZconVIZechubPresentation-thumb.jpg"
+              alt="Capa da apresentação do Hackathon ZecHub 2026"
+              width={400}
+              height={280}
+              className="block h-auto max-w-full rounded-xl border border-accent/30 object-cover"
+            />
+          </FigmaReveal>
+        </div>
+      </div>
+    </section>
+  );
+}
+</file>
+
+<file path="src/components/Header.tsx">
+'use client';
+
+import Link from 'next/link';
+import { useState } from 'react';
+import { AiFillGithub } from 'react-icons/ai';
+
+const links = [
+  { href: '/#inicio', label: 'Início' },
+  { href: '/#sobre', label: 'Sobre' },
+  { href: '/#projetos', label: 'Projetos' },
+  { href: '/#hackathon', label: 'Hackathon ZecHub' },
+  { href: '/#contato', label: 'Contato' },
+];
+
+export default function Header() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <header className="border-b border-white/10 bg-card/80 backdrop-blur sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+        <Link href="/" className="text-2xl font-bold text-accent">
+          Lucas do Condo Dev
+        </Link>
+
+        <nav className="hidden md:flex items-center gap-8">
+          {links.map((l) => (
+            <Link key={l.href} href={l.href} className="text-sm font-medium hover:underline">
+              {l.label}
+            </Link>
+          ))}
+          <a
+            href="https://github.com/LucasdoCondo"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center text-sm font-medium text-accent hover:underline"
+          >
+            GitHub
+            <AiFillGithub className="ml-1 h-4 w-4 inline-flex" />
+          </a>
+        </nav>
+
+        <button
+          className="md:hidden p-2"
+          aria-label="Abrir menu"
+          aria-expanded={open}
+          onClick={() => setOpen((o) => !o)}
+        >
+          ☰
+        </button>
+      </div>
+
+      {open && (
+        <nav className="md:hidden px-4 pb-4 flex flex-col gap-3">
+          {links.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              onClick={() => setOpen(false)}
+              className="text-sm font-medium"
+            >
+              {l.label}
+            </Link>
+          ))}
+        </nav>
+      )}
+    </header>
+  );
+}
+</file>
+
+<file path="src/components/Hero.tsx">
+import Image from 'next/image';
+import Link from 'next/link';
+import { IoLogoGithub } from 'react-icons/io';
+import { TypingEffect } from '@/components/TypingEffect';
+import Parallax from '@/components/Parallax';
+
+const ROLES: string[] = [
+  'Desenvolvedor Full‑Stack',
+  'Systems Analyst',
+  'IT Support Engineer / N3 Support Specialist',
+  'Application Developer',
+];
+
+export default function Hero() {
+  return (
+    <section
+      id="inicio"
+      className="relative flex min-h-[85vh] items-center justify-center overflow-hidden px-4 pt-20"
+    >
+      {/* Camada 1: brilho de fundo (move mais devagar, dá profundidade) */}
+      <Parallax
+        decorative
+        speed={0.3}
+        maxOffset={140}
+        className="pointer-events-none absolute inset-0"
+        innerClassName="h-full w-full"
+      >
+        <div className="absolute left-1/2 top-1/4 h-[28rem] w-[28rem] -translate-x-1/2 rounded-full bg-accent/10 blur-3xl" />
+      </Parallax>
+
+      <div className="relative mx-auto flex max-w-7xl flex-col items-center text-center">
+        {/* Camada 2: foto */}
+        <Parallax speed={0.1} maxOffset={80}>
+          <Image
+            src="/profile.jpeg"
+            alt="Foto de Lucas do Condo"
+            width={160}
+            height={160}
+            priority
+            className="mb-6 aspect-square rounded-full border-2 border-accent/40 object-cover object-center"
+          />
+        </Parallax>
+
+        {/* Camada 3: título, texto digitado e botão */}
+        <Parallax speed={0.04} maxOffset={60}>
+          <h1 className="mb-4 text-5xl font-bold text-accent md:text-7xl">
+            Lucas do Condo Dev
+          </h1>
+
+          <TypingEffect texts={ROLES} speed={100} pause={2500} loop />
+
+          <div className="flex flex-col justify-center gap-4 sm:flex-row">
+            <Link
+              href="https://github.com/LucasdoCondo"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center rounded-lg bg-accent px-6 py-3 font-medium text-black transition hover:opacity-90"
+            >
+              <IoLogoGithub className="mr-2 h-5 w-5" />
+              Ver no GitHub
+            </Link>
+          </div>
+        </Parallax>
+      </div>
+    </section>
+  );
+}
+</file>
+
+<file path="src/components/Parallax.tsx">
+'use client';
+
+import { useEffect, useRef, type ReactNode } from 'react';
+import { usePrefersReducedMotion } from '@/hooks/useMediaQuery';
+
+type ParallaxProps = {
+  children?: ReactNode;
+  /**
+   * Intensidade do efeito.
+   *  > 0  : move mais devagar que a rolagem (parece estar ao fundo)
+   *  < 0  : move mais rápido que a rolagem (parece estar à frente)
+   *  Valores úteis: entre -0.3 e 0.4.
+   */
+  speed?: number;
+  /** Deslocamento máximo em px, para o elemento nunca "fugir" do layout. */
+  maxOffset?: number;
+  /** Classes do contêiner externo (posicionamento e tamanho). */
+  className?: string;
+  /** Classes do elemento interno, que é o que se move. */
+  innerClassName?: string;
+  /** Marque como true para camadas puramente decorativas. */
+  decorative?: boolean;
+};
+
+const clamp = (value: number, min: number, max: number): number =>
+  Math.min(Math.max(value, min), max);
+
+export default function Parallax({
+  children,
+  speed = 0.2,
+  maxOffset = 120,
+  className = '',
+  innerClassName = '',
+  decorative = false,
+}: ParallaxProps) {
+  const outerRef = useRef<HTMLDivElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
+  const reduceMotion = usePrefersReducedMotion();
+
+  useEffect(() => {
+    const outer = outerRef.current;
+    const inner = innerRef.current;
+    if (!outer || !inner || reduceMotion) return;
+
+    let raf = 0;
+    let visible = false;
+
+    const update = () => {
+      raf = 0;
+      // Mede o contêiner externo (sem transform) para evitar efeito de retroalimentação.
+      const rect = outer.getBoundingClientRect();
+      const distanceFromCenter = rect.top + rect.height / 2 - window.innerHeight / 2;
+      const offset = clamp(-distanceFromCenter * speed, -maxOffset, maxOffset);
+      inner.style.transform = `translate3d(0, ${offset.toFixed(1)}px, 0)`;
+    };
+
+    const request = () => {
+      if (!visible || raf) return;
+      raf = window.requestAnimationFrame(update);
+    };
+
+    // Só calcula enquanto o elemento está perto da tela.
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        visible = entry.isIntersecting;
+        if (visible) request();
+      },
+      { rootMargin: '20% 0px' },
+    );
+    observer.observe(outer);
+
+    window.addEventListener('scroll', request, { passive: true });
+    window.addEventListener('resize', request);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('scroll', request);
+      window.removeEventListener('resize', request);
+      if (raf) window.cancelAnimationFrame(raf);
+      inner.style.transform = '';
+    };
+  }, [speed, maxOffset, reduceMotion]);
+
+  return (
+    <div ref={outerRef} className={className} aria-hidden={decorative || undefined}>
+      <div ref={innerRef} className={`will-change-transform ${innerClassName}`}>
+        {children}
+      </div>
+    </div>
+  );
+}
+</file>
+
+<file path="src/components/Projects.tsx">
+import { AiFillGithub } from 'react-icons/ai';
+import FigmaReveal from '@/components/FigmaReveal';
+
+type Project = {
+  title: string;
+  desc: string;
+  tech: string[];
+  href: string;
+  destaque?: boolean;
+};
+
+const projects: Project[] = [
+  {
+    title: 'ZecHub',
+    desc:
+      'Plataforma descentralizada de educação para Zcash. Tutoriais, wiki-docs, podcast e newsletter semanal – tudo open-source hospedado no GitHub.',
+    tech: ['TypeScript', 'React', 'Node.js', 'Tailwind CSS'],
+    href: 'https://github.com/LucasdoCondo/zechub',
+    destaque: true,
+  },
+  {
+    title: 'To-Do-List-TS',
+    desc:
+      'Aplicação de lista de tarefas responsiva com contexto React e persistência local.',
+    tech: ['TypeScript', 'React', 'Context API'],
+    href: 'https://github.com/LucasdoCondo/todo-ts',
+  },
+  {
+    title: 'ZconVI-Presentation',
+    desc:
+      'PDF de apresentação do hackathon Zcash ZconVI – design limpo e código de exemplo.',
+    tech: ['LaTeX', 'Figma', 'PDF'],
+    href: 'https://github.com/LucasdoCondo/zconvi-presentation',
+  },
+  {
+    title: 'Portfolio-Starter',
+    desc:
+      'Boilerplate de portfólio Next.js + TypeScript + Tailwind pronto para customização.',
+    tech: ['Next.js', 'TypeScript', 'Tailwind'],
+    href: 'https://github.com/LucasdoCondo/portfolio-starter',
+  },
+];
+
+export default function Projects() {
+  return (
+    <section id="projetos" className="py-24">
+      <div className="max-w-7xl mx-auto px-4">
+        <h3 className="text-3xl font-bold text-accent text-center mb-12">
+          Meus Projetos
+        </h3>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {projects.map((proj, i) => (
+            <FigmaReveal key={proj.title} delay={i * 150} className="h-full">
+              <article
+                className={`h-full rounded-2xl p-6 ${
+                  proj.destaque
+                    ? 'bg-card border-2 border-accent shadow-lg'
+                    : 'bg-bg border border-border/50'
+                }`}
+              >
+                <h4 className="text-xl font-medium text-accent mb-2">
+                  {proj.title}
+                </h4>
+                <p className="text-muted-foreground line-clamp-3 mb-4">
+                  {proj.desc}
+                </p>
+
+                <div className="flex flex-wrap gap-2">
+                  {proj.tech.map((t) => (
+                    <span
+                      key={t}
+                      className="inline-flex items-center px-2 py-0.5 bg-border/30 rounded text-xs text-accent"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+
+                <a
+                  href={proj.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-flex items-center text-accent hover:underline"
+                >
+                  <AiFillGithub className="mr-1 h-4 w-4" />
+                  GitHub
+                </a>
+              </article>
+            </FigmaReveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+</file>
+
+<file path="src/components/SwarmCursors.tsx">
+'use client';
+
+import { useEffect, useRef } from 'react';
+import { useHasFinePointer, usePrefersReducedMotion } from '@/hooks/useMediaQuery';
+
+type AgentConfig = {
+  readonly name: string;
+  readonly color: string;
+};
+
+// Edite nomes e cores à vontade; a ordem define quem aparece primeiro.
+const AGENTS = [
+  { name: 'Frontend', color: '#00d4aa' },
+  { name: 'Backend', color: '#a78bfa' },
+  { name: 'DevOps', color: '#f59e0b' },
+  { name: 'Redes', color: '#38bdf8' },
+  { name: 'Automação', color: '#f472b6' },
+  { name: 'Blockchain', color: '#84cc16' },
+] as const satisfies readonly AgentConfig[];
+
+type AgentState = {
+  x: number;
+  y: number;
+  angle: number;
+  radius: number;
+  ease: number;
+  opacity: number;
+};
+
+type Pointer = { x: number; y: number; active: boolean };
+
+type SwarmCursorsProps = {
+  /** Quantidade máxima de cursores (1 a 6). */
+  count?: number;
+};
+
+export default function SwarmCursors({ count = 5 }: SwarmCursorsProps) {
+  const total = Math.min(Math.max(Math.round(count), 1), AGENTS.length);
+  const elements = useRef<Array<HTMLDivElement | null>>([]);
+  const hasFinePointer = useHasFinePointer();
+  const reduceMotion = usePrefersReducedMotion();
+  const enabled = hasFinePointer && !reduceMotion;
+
+  useEffect(() => {
+    if (!enabled) return;
+
+    const pointer: Pointer = {
+      x: window.innerWidth / 2,
+      y: window.innerHeight / 2,
+      active: false,
+    };
+
+    const states: AgentState[] = Array.from({ length: total }, (_, i) => ({
+      x: pointer.x,
+      y: pointer.y,
+      angle: (i / total) * Math.PI * 2,
+      radius: 46 + i * 20,
+      ease: 0.12 - i * 0.012, // quem está mais longe reage mais devagar
+      opacity: 0,
+    }));
+
+    let raf = 0;
+    let running = false;
+    let time = 0;
+    let lastScroll = window.scrollY;
+    let energy = 0; // 0 = página parada, 1 = rolando rápido
+
+    const frame = () => {
+      time += 0.016;
+
+      // Quanto mais rápido o scroll, mais cursores entram em cena.
+      const delta = Math.abs(window.scrollY - lastScroll);
+      lastScroll = window.scrollY;
+      energy += (Math.min(delta / 30, 1) - energy) * 0.08;
+      const visibleCount = Math.min(total, 2 + Math.round(energy * Math.max(total - 2, 0)));
+
+      let anyVisible = false;
+
+      states.forEach((s, i) => {
+        const el = elements.current[i];
+        if (!el) return;
+
+        s.angle += 0.01 + i * 0.002;
+        const wobble = Math.sin(time * 1.3 + i) * 8;
+        const targetX = pointer.x + Math.cos(s.angle) * (s.radius + wobble);
+        const targetY = pointer.y + Math.sin(s.angle) * (s.radius + wobble);
+
+        s.x += (targetX - s.x) * s.ease;
+        s.y += (targetY - s.y) * s.ease;
+
+        const targetOpacity = pointer.active && i < visibleCount ? 1 : 0;
+        s.opacity += (targetOpacity - s.opacity) * 0.08;
+        if (s.opacity > 0.01) anyVisible = true;
+
+        el.style.transform = `translate3d(${s.x}px, ${s.y}px, 0)`;
+        el.style.opacity = s.opacity.toFixed(3);
+      });
+
+      // Só continua o loop se houver algo para animar.
+      if (pointer.active || anyVisible) {
+        raf = window.requestAnimationFrame(frame);
+      } else {
+        running = false;
+      }
+    };
+
+    const start = () => {
+      if (running || document.hidden) return;
+      running = true;
+      raf = window.requestAnimationFrame(frame);
+    };
+
+    const onMove = (e: MouseEvent) => {
+      pointer.x = e.clientX;
+      pointer.y = e.clientY;
+      pointer.active = true;
+      start();
+    };
+
+    const onLeave = () => {
+      pointer.active = false;
+      start(); // continua até os cursores sumirem
+    };
+
+    const onVisibility = () => {
+      if (document.hidden) {
+        window.cancelAnimationFrame(raf);
+        running = false;
+      }
+    };
+
+    window.addEventListener('mousemove', onMove, { passive: true });
+    document.documentElement.addEventListener('mouseleave', onLeave);
+    document.addEventListener('visibilitychange', onVisibility);
+
+    return () => {
+      window.cancelAnimationFrame(raf);
+      window.removeEventListener('mousemove', onMove);
+      document.documentElement.removeEventListener('mouseleave', onLeave);
+      document.removeEventListener('visibilitychange', onVisibility);
+    };
+  }, [enabled, total]);
+
+  if (!enabled) return null;
+
+  return (
+    <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-[60] overflow-hidden">
+      {AGENTS.slice(0, total).map((agent, i) => (
+        <div
+          key={agent.name}
+          ref={(el) => {
+            elements.current[i] = el;
+          }}
+          className="absolute left-0 top-0 flex items-start opacity-0 will-change-transform"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24">
+            <path
+              d="M3 2l7 19 2.5-7.5L20 11z"
+              fill={agent.color}
+              stroke="#0a0a0f"
+              strokeWidth="1.5"
+              strokeLinejoin="round"
+            />
+          </svg>
+          <span
+            className="ml-1 mt-3 rounded px-1.5 py-0.5 text-[10px] font-medium text-black"
+            style={{ backgroundColor: agent.color }}
+          >
+            {agent.name}
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+}
+</file>
+
+<file path="src/components/TypingEffect.tsx">
+'use client';
+
+import React, { useState, useEffect } from 'react';
+
+type TypingEffectProps = {
+  texts: string[];
+  speed?: number;
+  pause?: number;
+  loop?: boolean;
+};
+
+export const TypingEffect: React.FC<TypingEffectProps> = ({
+  texts = [],
+  speed = 100,
+  pause = 2000,
+  loop = true,
+}) => {
+  const [textIndex, setTextIndex] = useState(0);
+  const [charIndex, setCharIndex] = useState(0);
+
+  const currentText = texts[textIndex] ?? '';
+  const displayText = currentText.slice(0, charIndex);
+  const finished = charIndex >= currentText.length;
+
+  useEffect(() => {
+    if (finished) return;
+    const id = setTimeout(() => setCharIndex((c) => c + 1), speed);
+    return () => clearTimeout(id);
+  }, [finished, charIndex, speed]);
+
+  useEffect(() => {
+    if (!finished) return;
+    if (!loop && textIndex === texts.length - 1) return;
+    const id = setTimeout(() => {
+      setTextIndex((i) => (i + 1) % texts.length);
+      setCharIndex(0);
+    }, pause);
+    return () => clearTimeout(id);
+  }, [finished, pause, loop, textIndex, texts.length]);
+
+  return (
+    <p className="text-xl md:text-2xl text-white/80 mb-8 min-h-[2rem]" aria-live="polite">
+      {displayText}
+      <span className="ml-1 inline-block h-5 w-0.5 bg-accent animate-pulse align-middle" />
+    </p>
+  );
+};
+</file>
+
+<file path="src/hooks/useMediaQuery.ts">
+'use client';
+
+import { useSyncExternalStore } from 'react';
+
+/**
+ * Lê uma media query de forma segura para SSR/hidratação.
+ * No servidor retorna `false`; no cliente passa a refletir o valor real
+ * e reage a mudanças (ex.: o usuário liga "reduzir movimento" no sistema).
+ */
+export function useMediaQuery(query: string): boolean {
+  return useSyncExternalStore(
+    (onChange: () => void) => {
+      const mql = window.matchMedia(query);
+      mql.addEventListener('change', onChange);
+      return () => mql.removeEventListener('change', onChange);
+    },
+    () => window.matchMedia(query).matches,
+    () => false,
+  );
+}
+
+export function usePrefersReducedMotion(): boolean {
+  return useMediaQuery('(prefers-reduced-motion: reduce)');
+}
+
+export function useHasFinePointer(): boolean {
+  return useMediaQuery('(pointer: fine)');
+}
+</file>
+
+<file path="src/styles/globals.css">
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* small extra customization */
+html {
+  background-color: var(--bg, #0a0a0f);
+  color: var(--fg, #eaeaea);
+  scroll-behavior: smooth;
+  scroll-padding-top: 4rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+</file>
+
+<file path=".eslintrc.json">
+{
+  "extends": "next/core-web-vitals"
+}
+</file>
+
+<file path="next-env.d.ts">
+/// <reference types="next" />
+/// <reference types="next/image-types/global" />
+
+// NOTE: This file should not be edited
+// see https://nextjs.org/docs/basic-features/typescript for more information.
+</file>
+
+<file path="next.config.js">
+/** @type {import('next').NextConfig} */
+module.exports = {
+  reactStrictMode: true,
+}
+</file>
+
+<file path="package.json">
+{
+  "name": "lucas-do-condo-dev",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "autoprefixer": "^10.4.20",
+    "next": "^14.2.4",
+    "postcss": "^8.4.47",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-icons": "^5.3.0",
+    "tailwindcss": "^3.4.10"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.2",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "14.2.4",
+    "typescript": "^5.5.2"
+  }
+}
+</file>
+
+<file path="postcss.config.js">
+module.exports = {
+  plugins: ['tailwindcss', 'autoprefixer'],
+};
+</file>
+
+<file path="tailwind.config.js">
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  darkMode: 'class',
+  content: [
+    './src/app/**/*.{js,ts,jsx,tsx}',
+    './src/components/**/*.{js,ts,jsx,tsx}',
+  ],
+  theme: {
+    extend: {
+      fontFamily: {
+        display: ['"Inter"', 'sans-serif'],
+        body: ['"Roboto"', 'sans-serif'],
+      },
+      colors: {
+        bg: '#0a0a0f',
+        card: '#161621',
+        accent: '#00d4aa',
+        border: '#2a2a3a',
+        'muted-foreground': '#9ca3af',
+      },
+    },
+  },
+  plugins: [],
+}
+</file>
+
+<file path="tsconfig.json">
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "preserve",
+    "resolveJsonModule": true,
+    
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "allowJs": true,
+    "noEmit": true,
+    "incremental": true,
+    "isolatedModules": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
+</file>
+
+</files>
